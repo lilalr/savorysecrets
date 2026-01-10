@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "User / Pengguna" as User
+actor "Admin" as Admin
+actor "System / TheMealDB API" as System
+
+rectangle "SavorySecrets - Management System" {
+    (Registrasi & Login) as UC1
+    (Generate API Key) as UC2
+    (Cari Resep Global via TheMealDB) as UC3
+    (Lihat Detail Resep & Video Tutorial) as UC4
+    (Manage All Users) as UC5
+    
+    ' Tambahan Use Case Baru sesuai permintaan
+    (Inspeksi Respons API / Show Response) as UC6
+}
+
+' Relasi User
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC6
+
+' Relasi ke API Eksternal
+UC3 -- System
+UC4 -- System
+UC6 -- System
+
+' Relasi Admin
+Admin --> UC5
+
+@enduml

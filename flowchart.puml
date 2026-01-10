@@ -1,0 +1,48 @@
+@startuml
+skinparam ActivityBackgroundColor #FEF5E7
+skinparam ActivityBorderColor #5D4037
+skinparam ArrowColor #5D4037
+
+start
+
+:Membuka Aplikasi Savory Dashboard;
+
+if (Sudah Login?) then (Belum)
+  :Halaman Register/Login;
+  :Input Kredensial;
+  :Validasi Database (Tabel Users);
+  :Generate JWT Token;
+else (Ya)
+endif
+
+:Tampilan Dashboard (Selamat Datang);
+
+partition "API Key Manager" {
+  if (Sudah punya API Key?) then (Belum)
+    :Klik GENERATE API KEY;
+    :Simpan API Key ke Database (Tabel Users);
+  else (Ya)
+    :Tampilkan API Key yang ada;
+  endif
+}
+
+:Klik BUKA EXPLORER RESEP;
+
+partition "Explorer Resep (Global)" {
+  :Input Kata Kunci (e.g., 'Beef');
+  :Kirim Request ke TheMealDB API;
+  :API Return Data JSON (Resep & Media);
+  
+  if (Pilih Mode Tampilan?) then (Visual)
+    :Tampilkan Daftar Resep di Frontend;
+    :Pilih Resep;
+    :Lihat Detail (Bahan, Instruksi, YouTube);
+  else (Teknis)
+    :Klik Tombol SHOW RESPONSE;
+    :Tampilkan Call, Code, Headers, dan Body;
+    note right: Menampilkan data JSON asli\ndari server TheMealDB
+  endif
+}
+
+stop
+@enduml
