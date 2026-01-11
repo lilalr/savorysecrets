@@ -79,20 +79,18 @@ app.get('/api/admin/users', async (req, res) => {
 app.get('/api/recipes/search', async (req, res) => {
     const { api_key, q } = req.query;
     try {
-        // Validasi Key
+        // 1. Validasi API Key di Database Lokal
         const [user] = await pool.execute('SELECT id FROM users WHERE api_key = ?', [api_key]);
-        if (user.length === 0) return res.status(401).json({ message: "API Key Tidak Valid atau Salah" });
+        if (user.length === 0) return res.status(401).json({ message: "API Key Tidak Valid" });
 
-        // Cari Resep berdasarkan bahan di tabel ingredients
-        const [recipes] = await pool.execute(
-            `SELECT DISTINCT r.* FROM recipes r 
-             JOIN ingredients i ON r.id = i.recipe_id 
-             WHERE i.name LIKE ?`, 
-            [`%${q}%`]
-        );
-        res.json(recipes);
+        // 2. AMBIL DATA DARI THEMEALDB (Bukan dari MySQL)
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${q}`);
+        const data = await response.json();
+
+        // 3. Kirim hasil API ke Frontend
+        res.json(data.meals || []); 
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Gagal mengambil data dari API" });
     }
 });
 
