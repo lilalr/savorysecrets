@@ -29,7 +29,7 @@
      <img width="2240" height="1400" alt="Screenshot (780)" src="https://github.com/user-attachments/assets/0422643d-6960-4c31-ba87-60423e36f642" />
 
   4. FITUR UTAMA (search resepnya)
-     <img width="2240" height="1400" alt="Screenshot (780)" src="https://github.com/user-attachments/assets/f2cbe77b-d8d4-46e2-96f1-1535c644cc99" />
+     <img width="2240" height="1400" alt="Screenshot (786)" src="https://github.com/user-attachments/assets/5f76294b-38ad-4be5-9a66-7e59020cdff8" />
 
   6. LIST DATA USER
      <img width="2240" height="1400" alt="Screenshot (787)" src="https://github.com/user-attachments/assets/d688f076-bebd-437a-b125-69611cc7bc42" />
